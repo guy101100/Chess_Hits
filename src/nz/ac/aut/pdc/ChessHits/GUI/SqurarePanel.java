@@ -5,9 +5,10 @@
 package nz.ac.aut.pdc.ChessHits.GUI;
 
 import java.awt.Component;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import nz.ac.aut.pdc.ChessHits.model.ChessHitsGame;
 import nz.ac.aut.pdc.ChessHits.model.Color;
-import nz.ac.aut.pdc.ChessHits.model.Position;
 import nz.ac.aut.pdc.ChessHits.model.Square;
 import nz.ac.aut.pdc.ChessHits.model.pieces.Piece;
 
@@ -16,100 +17,90 @@ import nz.ac.aut.pdc.ChessHits.model.pieces.Piece;
  * @author gl
  */
 public class SqurarePanel extends javax.swing.JPanel {
-private Square square;
-private Piece piece;
-private ChessHitsGame game;
-    private boolean oneClick;
+
+    private Square square;
+    private Piece piece;
+    private ChessHitsGame game;
     private int row;
     private int col;
-   private  MainFrame frame;
+    private MainFrame frame;
+
     /**
      * Creates new form SqurarePanel
      */
-    public SqurarePanel(ChessHitsGame game, int row , int col) {
+    public SqurarePanel(ChessHitsGame game, int row, int col, MainFrame frame) {
         this.game = game;
-        this.row= row;
-        this.col =col;
-      square =  game.getSquare(row, col);
-     piece = square.getOccupiedPiece();
+        this.row = row;
+        this.col = col;
+        this.frame = frame;
+        square = game.getSquare(row, col);
+        piece = square.getOccupiedPiece();
         initComponents();
-      update();
-         if(row == 0 && col == 0){
-                this.setBackground(java.awt.Color.GRAY);
-            }
-            else if(row == 0 && col%2 == 0){
-               this.setBackground(java.awt.Color.GRAY);
-            }
-            else if( row % 2 == 0 && col % 2 == 0){
-                this.setBackground(java.awt.Color.GRAY);
-            }
-            else if(row % 2 ==0 && col == 0){
-                this.setBackground(java.awt.Color.GRAY);
-            }
-             else if(row == 0 && col%2 == 0){
-               this.setBackground(java.awt.Color.GRAY);
-            }
-            else if( row % 2 != 0 && col % 2 != 0){
-                this.setBackground(java.awt.Color.GRAY);
-            }
-       
-            else {
-                this.setBackground(java.awt.Color.white);
-            }
-    }
-    private void update(){
-          if(!square.isSquareAvailable()){
-            lblRep.setText(piece.getStringRepresentation());
-            if(piece.getColor() == Color.BLACK){
-                lblRep.setForeground (java.awt.Color.BLACK);
-            }
-            else{
-                lblRep.setForeground (java.awt.Color.LIGHT_GRAY);
-            }
-           
+        update();
+        if (row == 0 && col == 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else if (row == 0 && col % 2 == 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else if (row % 2 == 0 && col % 2 == 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else if (row % 2 == 0 && col == 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else if (row == 0 && col % 2 == 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else if (row % 2 != 0 && col % 2 != 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else {
+            this.setBackground(java.awt.Color.WHITE);
         }
-          else{
-              lblRep.setText("");
-          }
     }
-    private void fullUpdate(){
-             if(!square.isSquareAvailable()){
-            lblRep.setText(piece.getStringRepresentation());
-            if(piece.getColor() == Color.BLACK){
-                lblRep.setForeground (java.awt.Color.BLACK);
+
+    private void update() {
+        lblRep.setIcon(null);
+        if (!square.isSquareAvailable()) {
+            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation() + ".png"));
+            lblRep.setIcon(icon);
+            if (piece.getColor() == Color.BLACK) {
+                lblRep.setForeground(java.awt.Color.BLACK);
+            } else {
+                lblRep.setForeground(java.awt.Color.LIGHT_GRAY);
             }
-            else{
-                lblRep.setForeground (java.awt.Color.LIGHT_GRAY);
-            }
-           
+
+        } else {
+            lblRep.setText("");
         }
-          else{
-              lblRep.setText("");
-          }
-                if(row == 0 && col == 0){
-                this.setBackground(java.awt.Color.GRAY);
-            }
-            else if(row == 0 && col%2 == 0){
-               this.setBackground(java.awt.Color.GRAY);
-            }
-            else if( row % 2 == 0 && col % 2 == 0){
-                this.setBackground(java.awt.Color.GRAY);
-            }
-            else if(row % 2 ==0 && col == 0){
-                this.setBackground(java.awt.Color.GRAY);
-            }
-             else if(row == 0 && col%2 == 0){
-               this.setBackground(java.awt.Color.GRAY);
-            }
-            else if( row % 2 != 0 && col % 2 != 0){
-                this.setBackground(java.awt.Color.GRAY);
-            }
-       
-            else {
-                this.setBackground(java.awt.Color.white);
-            }
     }
-    
+
+    private void fullUpdate() {
+        lblRep.setIcon(null);
+        if (!square.isSquareAvailable()) {
+            ImageIcon icon = new ImageIcon(getClass().getResource("/nz/ac/aut/pdc/ChessHits/GUI/images/" + piece.getStringRepresentation() + ".png"));
+            lblRep.setIcon(icon);
+            if (piece.getColor() == Color.BLACK) {
+                lblRep.setForeground(java.awt.Color.BLACK);
+            } else {
+                lblRep.setForeground(java.awt.Color.LIGHT_GRAY);
+            }
+
+        } else {
+            lblRep.setText("");
+        }
+        if (row == 0 && col == 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else if (row == 0 && col % 2 == 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else if (row % 2 == 0 && col % 2 == 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else if (row % 2 == 0 && col == 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else if (row == 0 && col % 2 == 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else if (row % 2 != 0 && col % 2 != 0) {
+            this.setBackground(java.awt.Color.GRAY);
+        } else {
+            this.setBackground(java.awt.Color.WHITE);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -150,28 +141,25 @@ private ChessHitsGame game;
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         // TODO add your handling code here:
-
     }//GEN-LAST:event_formMouseReleased
 
     private void lblRepMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRepMouseReleased
         // TODO add your handling code here:
         boolean turn = game.getSelectedSquare(square);
         this.setBackground(java.awt.Color.ORANGE);
-          piece = square.getOccupiedPiece();
-          update();
-         for(Component component:getParent().getComponents()){
-             SqurarePanel sp = (SqurarePanel) component;
-             if(turn){
-             sp.update();
-             }
-             else{
+        piece = square.getOccupiedPiece();
+        update();
+        for (Component component : getParent().getComponents()) {
+            SqurarePanel sp = (SqurarePanel) component;
+            if (turn) {
+                sp.update();
+            } else {
                 sp.fullUpdate();
-             }
-            
-         }
-         
-    }//GEN-LAST:event_lblRepMouseReleased
+            }
+            this.frame.update();
+        }
 
+    }//GEN-LAST:event_lblRepMouseReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblRep;
     // End of variables declaration//GEN-END:variables

@@ -52,7 +52,40 @@ public class Knight extends Piece {
         Collection<Square> squares = new HashSet<>();
         int currentCol = getCurrentPosition().getColumn();
         int currentRow = getCurrentPosition().getRow();
-        if (currentRow > 0 && currentCol > 0 && board.getPositions()[currentRow - 2][currentCol - 1] != null) {
+//        if (currentRow > 0 && currentCol > 0 && board.getPositions()[currentRow - 2][currentCol - 1] != null) {
+//            nwt = board.getPositions()[currentRow - 2][currentCol - 1];
+//            positions.add(nwt);
+//        }
+//        if (currentRow > 0 && currentCol > 1 && board.getPositions()[currentRow - 1][currentCol - 2] != null) {
+//            nwd = board.getPositions()[currentRow - 1][currentCol - 2];
+//            positions.add(nwd);
+//        }
+//        if (currentRow > 2 && currentCol < 6 && board.getPositions()[currentRow - 2][currentCol + 1] != null) {
+//            net = board.getPositions()[currentRow - 2][currentCol + 1];
+//            positions.add(net);
+//        }
+//        if (currentRow > 0 && currentCol < 5 && board.getPositions()[currentRow - 1][currentCol + 2] != null) {
+//            ned = board.getPositions()[currentRow - 1][currentCol + 2];
+//            positions.add(ned);
+//        }
+//        if (currentRow < 7 && currentCol > 1 && board.getPositions()[currentRow + 1][currentCol - 2] != null) {
+//            swt = board.getPositions()[currentRow + 1][currentCol - 2];
+//            positions.add(swt);
+//        }
+//        if (currentRow < 6 && currentCol > 0 && board.getPositions()[currentRow + 2][currentCol - 1] != null) {
+//            swd = board.getPositions()[currentRow + 2][currentCol - 1];
+//            positions.add(swd);
+//        }
+//        if (currentRow < 7 && currentCol < 6 && board.getPositions()[currentRow + 1][currentCol + 2] != null) {
+//            set = board.getPositions()[currentRow + 1][currentCol + 2];
+//            positions.add(set);
+//        }
+//        if (currentRow < 6 && currentCol < 6
+//                && board.getPositions()[currentRow + 2][currentCol + 1] != null) {
+//            sed = board.getPositions()[currentRow + 2][currentCol + 1];
+//            positions.add(sed);
+//        }
+        if (currentRow > 1 && currentCol > 0 && board.getPositions()[currentRow - 2][currentCol - 1] != null) {
             nwt = board.getPositions()[currentRow - 2][currentCol - 1];
             positions.add(nwt);
         }
@@ -60,7 +93,7 @@ public class Knight extends Piece {
             nwd = board.getPositions()[currentRow - 1][currentCol - 2];
             positions.add(nwd);
         }
-        if (currentRow > 2 && currentCol < 6 && board.getPositions()[currentRow - 2][currentCol + 1] != null) {
+        if (currentRow > 1 && currentCol < 7 && board.getPositions()[currentRow - 2][currentCol + 1] != null) {
             net = board.getPositions()[currentRow - 2][currentCol + 1];
             positions.add(net);
         }
@@ -80,11 +113,12 @@ public class Knight extends Piece {
             set = board.getPositions()[currentRow + 1][currentCol + 2];
             positions.add(set);
         }
-        if (currentRow < 6 && currentCol < 6
+        if (currentRow < 6 && currentCol < 7
                 && board.getPositions()[currentRow + 2][currentCol + 1] != null) {
             sed = board.getPositions()[currentRow + 2][currentCol + 1];
             positions.add(sed);
         }
+
 
         for (Position pos : positions) {
             if (pos != null) {

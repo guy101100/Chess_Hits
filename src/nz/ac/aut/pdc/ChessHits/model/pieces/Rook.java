@@ -42,10 +42,6 @@ public class Rook extends Piece {
         this.isAbleToCastle = false;
     }
 
-    public void enableCastle() {
-        this.isAbleToCastle = true;
-    }
-
     public boolean getCastleStatus() {
         return this.isAbleToCastle;
     }
@@ -99,7 +95,7 @@ public class Rook extends Piece {
         } else if (isHorizontal && getCurrentPosition().getColumn() >= end.getColumn()) {
             int col = getCurrentPosition().getColumn() - 1;
             for (int index = col; index >= end.getColumn(); index--) {
-                tempPos = board.getPositions()[getCurrentPosition().getRow()][col];
+                tempPos = board.getPositions()[getCurrentPosition().getRow()][index];
                 Square temSquare = board.getSquare(tempPos);
                 isOccupiedNotFound = !temSquare.isSquareAvailable();
                 if (shouldAddElement) {

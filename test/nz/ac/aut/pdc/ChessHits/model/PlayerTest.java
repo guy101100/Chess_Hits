@@ -32,7 +32,7 @@ public class PlayerTest {
 
     @Before
     public void setUp() {
-        this.player = new Player();
+        this.player = new Player("yl", Color.BLACK);
     }
 
     @After
@@ -40,42 +40,42 @@ public class PlayerTest {
         this.player = null;
     }
 
-    /**
+    /*
      * Test of setColor method, of class Player.
-     */
-    @Test
-    public void testSetBlackColorSuccessful() {
-        Color color = Color.BLACK;
-        player.setColor(color);
-        assertTrue(Color.BLACK.equals(player.getSelectedColor()));
-    }
+     *
+     @Test
+     public void testSetBlackColorSuccessful() {
+     Color color = Color.BLACK;
+     player.setColor(color);
+     assertTrue(Color.BLACK.equals(player.getSelectedColor()));
+     }
 
-    @Test
-    public void testSetWhiteColorSuccessful() {
-        Color color = Color.WHITE;
-        player.setColor(color);
-        assertFalse(Color.BLACK.equals(player.getSelectedColor()));
-    }
+     @Test
+     public void testSetWhiteColorSuccessful() {
+     Color color = Color.WHITE;
+     player.setColor(color);
+     assertFalse(Color.BLACK.equals(player.getSelectedColor()));
+     }
 
 
-    /**
+     /**
      * Test of getName method, of class Player.
+     *
+     @Test
+     public void testSetNameWhenNamesDifferent() {
+     player.setName("hello");
+     String result = player.getName();
+     assertFalse("name was" + result, "CoolPlayer".equals(result));
+     // TODO review the generated test code and remove the default call to fail.
+     }
+
+     @Test
+     public void testSetNameWhenNamesSame() {
+     player.setName("Awesome");
+     String result = player.getName();
+     assertTrue("name was " + result, "Awesome".equals(result));
+     }
      */
-    @Test
-    public void testSetNameWhenNamesDifferent() {
-        player.setName("hello");
-        String result = player.getName();
-        assertFalse("name was" + result, "CoolPlayer".equals(result));
-        // TODO review the generated test code and remove the default call to fail.
-    }
-
-    @Test
-    public void testSetNameWhenNamesSame() {
-        player.setName("Awesome");
-        String result = player.getName();
-        assertTrue("name was " + result, "Awesome".equals(result));
-    }
-
     /**
      * Test of getIsTurn method, of class Player.
      */

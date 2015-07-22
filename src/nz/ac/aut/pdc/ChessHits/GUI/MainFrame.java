@@ -24,7 +24,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Player playerTwo;
     private Board board;
 
-    MainFrame(Player playerOne, Player playerTwo, ChessHitsGame game, boolean PlayerOneWhite) {
+    MainFrame(Player playerOne, Player playerTwo, ChessHitsGame game, boolean isPlayerOneWhite) {
         this.game = game;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
@@ -32,13 +32,10 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setUpPanels();
-        game.setWhitePlayer(playerOne);
-        game.setBlackPlayer(playerTwo);
-        if (PlayerOneWhite) {
+        if (isPlayerOneWhite) {
             this.playerOne.setIsTurn(true);
             game.setWhitePlayer(playerOne);
             game.setBlackPlayer(playerTwo);
-
             game.setWhiteTurn(true);
             this.playerTwo.setIsTurn(false);
 
@@ -46,19 +43,19 @@ public class MainFrame extends javax.swing.JFrame {
             this.playerOne.setIsTurn(false);
             game.setWhitePlayer(playerTwo);
             game.setBlackPlayer(playerOne);
-            game.setWhiteTurn(false);
+            game.setWhiteTurn(true);
             this.playerTwo.setIsTurn(true);
         }
         update();
     }
 
-    private void update() {
+    public void update() {
         if (playerOne.getIsTurn()) {
-            lblPlayer.setText("playersTurn: \n" + playerOne.getName());
-            lblPlayerColor.setText(playerOne.getSelectedColor().getTextRepresentation());
+            lblPlayerMoveTurn.setText("turn: " + playerOne.getName());
+            lblPlayerColor.setText("color: "+playerOne.getSelectedColor().getTextRepresentation());
         } else {
-            lblPlayer.setText("playersTurn: \n" + playerTwo.getName());
-            lblPlayerColor.setText(playerTwo.getSelectedColor().getTextRepresentation());
+            lblPlayerMoveTurn.setText("turn: " +playerTwo.getName());
+            lblPlayerColor.setText("color: "+playerTwo.getSelectedColor().getTextRepresentation());
         }
     }
 
@@ -68,7 +65,7 @@ public class MainFrame extends javax.swing.JFrame {
         gamePanel.setLayout(new GridLayout(row, col));
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                SqurarePanel sQP = new SqurarePanel(game, i, j);
+                SqurarePanel sQP = new SqurarePanel(game, i, j, this);
                 gamePanel.add(sQP);
             }
         }
@@ -82,61 +79,114 @@ public class MainFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        lblPlayer = new javax.swing.JLabel();
-        lblPlayerColor = new javax.swing.JLabel();
+        lblPlayerMoveTurn = new javax.swing.JLabel();
         gamePanel = new javax.swing.JPanel();
+        lblPlayerColor = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        newGame = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(600, 600));
+        setMinimumSize(new java.awt.Dimension(600, 600));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        lblPlayer.setText("jLabel1");
+        lblPlayerMoveTurn.setText("playerNmlb");
+        lblPlayerMoveTurn.setAlignmentY(0.0F);
+        lblPlayerMoveTurn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblPlayerMoveTurn.setMaximumSize(null);
+        lblPlayerMoveTurn.setMinimumSize(null);
+        lblPlayerMoveTurn.setPreferredSize(null);
+        lblPlayerMoveTurn.setRequestFocusEnabled(false);
+        lblPlayerMoveTurn.setVerifyInputWhenFocusTarget(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        getContentPane().add(lblPlayerMoveTurn, gridBagConstraints);
+        lblPlayerMoveTurn.getAccessibleContext().setAccessibleDescription("");
 
-        lblPlayerColor.setText("jLabel1");
+        gamePanel.setMaximumSize(new java.awt.Dimension(100, 100));
+        gamePanel.setMinimumSize(new java.awt.Dimension(100, 100));
 
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
         gamePanel.setLayout(gamePanelLayout);
         gamePanelLayout.setHorizontalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 307, Short.MAX_VALUE)
+            .addGap(0, 407, Short.MAX_VALUE)
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 388, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(gamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPlayerColor)
-                    .addComponent(lblPlayer))
-                .addGap(31, 31, 31))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(lblPlayer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblPlayerColor)
-                .addContainerGap(202, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(gamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridheight = 10;
+        gridBagConstraints.ipadx = 307;
+        gridBagConstraints.ipady = 288;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(gamePanel, gridBagConstraints);
+
+        lblPlayerColor.setText("colorlb");
+        lblPlayerColor.setFocusable(false);
+        lblPlayerColor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblPlayerColor.setMaximumSize(null);
+        lblPlayerColor.setMinimumSize(null);
+        lblPlayerColor.setPreferredSize(null);
+        lblPlayerColor.setRequestFocusEnabled(false);
+        lblPlayerColor.setVerifyInputWhenFocusTarget(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        getContentPane().add(lblPlayerColor, gridBagConstraints);
+
+        jMenu1.setText("File");
+
+        newGame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        newGame.setText("New Game");
+        newGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newGameActionPerformed(evt);
+            }
+        });
+        jMenu1.add(newGame);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void newGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameActionPerformed
+        game = new ChessHitsGame();
+        gamePanel.removeAll();
+        this.setVisible(false);
+       StartFrame start = new StartFrame(game);
+       start.setVisible(true);
+    }//GEN-LAST:event_newGameActionPerformed
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gamePanel;
-    private javax.swing.JLabel lblPlayer;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblPlayerColor;
+    private javax.swing.JLabel lblPlayerMoveTurn;
+    private javax.swing.JMenuItem newGame;
     // End of variables declaration//GEN-END:variables
 }

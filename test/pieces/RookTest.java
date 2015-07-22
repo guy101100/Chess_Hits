@@ -68,8 +68,6 @@ public class RookTest {
     public void testEnableCastle() {
         rookBlack.disableCastle();
         assertFalse(rookBlack.getCastleStatus());
-        rookBlack.enableCastle();
-        assertTrue(rookBlack.getCastleStatus());
     }
 
     /**
@@ -80,8 +78,6 @@ public class RookTest {
 
         rookBlack.disableCastle();
         assertFalse(rookBlack.getCastleStatus());
-        rookBlack.enableCastle();
-        assertTrue(rookBlack.getCastleStatus());
     }
 
     /**

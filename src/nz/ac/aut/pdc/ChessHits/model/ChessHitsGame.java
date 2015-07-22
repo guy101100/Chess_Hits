@@ -8,7 +8,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Scanner;
@@ -18,6 +17,7 @@ import java.util.*;
 import static nz.ac.aut.pdc.ChessHits.model.Color.BLACK;
 import static nz.ac.aut.pdc.ChessHits.model.Color.WHITE;
 import nz.ac.aut.pdc.ChessHits.model.pieces.*;
+import userDB.UserDatabase;
 
 /**
  * the wrapper class of ChessHitsGame.
@@ -32,49 +32,41 @@ import nz.ac.aut.pdc.ChessHits.model.pieces.*;
 public class ChessHitsGame {
 
     // constants
-    private static final String FILENAME = "SquareData.txt";
-    private static final String PLAYER_DATA = "PlayerData/PlayerData.txt";
-    private static final File USER_FILE = new File(PLAYER_DATA);
-    private static final String GAME_SAVE_DATA = "GameData/GameData.txt";
-    private static final File GAME_SAVE_FILE = new File(GAME_SAVE_DATA);
-    //ANSI 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
+//    private static final String FILENAME = "SquareData.txt";
+    //private static final String PLAYER_DATA = "PlayerData/PlayerData.txt";
+    //private static final File USER_FILE = new File(PLAYER_DATA);
+//    private static final String GAME_SAVE_DATA = "GameData/GameData.txt";
+//    private static final File GAME_SAVE_FILE = new File(GAME_SAVE_DATA);
     // no function atm
-    private FileOutputStream playerFileOutput;
-    private OutputStreamWriter osw;
-    private Writer playerFileWriter;
+//    private FileOutputStream playerFileOutput;
+//    private OutputStreamWriter osw;
+//    private Writer playerFileWriter;
     private Scanner userInputReader;
     private Board board;
     private Player blackPlayer;
     private Player whitePlayer;
     private boolean isGameAppRunning;
     private boolean isGameRunning;
-    private boolean arePLayers;
+//    private boolean arePLayers;
     private boolean firstSelected = false;
     private Square squareMove;
     private boolean whiteTurn;
+//    private UserDatabase userDB;
 
     /**
      * create a new game.
      */
     public ChessHitsGame() {
-        try {
-       //     this.userInputReader = newgetPositions Scanner(System.in);
-            this.playerFileOutput = new FileOutputStream(ChessHitsGame.USER_FILE);
-            this.osw = new OutputStreamWriter(this.playerFileOutput);
-            this.playerFileWriter = new BufferedWriter(osw);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ChessHitsGame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        board = new Board();
+        //try {
+//            this.playerFileOutput = new FileOutputStream(ChessHitsGame.USER_FILE);
+        //this.osw = new OutputStreamWriter(this.playerFileOutput);
+        //this.playerFileWriter = new BufferedWriter(osw);
+        //      } catch (FileNotFoundException ex) {
+        //        Logger.getLogger(ChessHitsGame.class.getName()).log(Level.SEVERE, null, ex);
+        //  }
+
+        //this.userDB.createTable();
+        this.board = new Board();
         generateRankPieces(BLACK);
         generateRankPieces(WHITE);
         generatePawns(BLACK);
@@ -113,7 +105,6 @@ public class ChessHitsGame {
 //            }
 //        }
 //    }
-
 //    public final void playerTurn(Player player) {
 //        boolean yetToMove = true;
 //        while (yetToMove && this.isGameRunning) {
@@ -141,7 +132,6 @@ public class ChessHitsGame {
 //        }
 //
 //    }
-
     private boolean isPawnAbleFork(Piece piece, Position toPos) {
         boolean isSuccessful = false;
         Pawn forkPawn = (Pawn) piece;
@@ -186,7 +176,6 @@ public class ChessHitsGame {
 //        this.blackPlayer.setColor(Color.BLACK);
 //        this.whitePlayer.setColor(Color.WHITE);
 //    }
-
 //    private void createPlayerAccount(Player player) {
 //        String name = userInputReader.nextLine();
 //        String[] splitName = name.split(" ");
@@ -198,26 +187,24 @@ public class ChessHitsGame {
 //            Logger.getLogger(ChessHitsGame.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-
-    /**
-     * initialize Chessboard data from a txt file.
-     *
-     * @param filename name of resource file
-     */
-    private void initializeGameFromFile(String filename) {
-        try {
-            Scanner input = new Scanner(new File(filename));
-            input.useDelimiter("\\s*,\\s*");
-            generatePawns(Color.BLACK);
-            generatePawns(Color.WHITE);
-            generateRankPieces(Color.BLACK);
-            generateRankPieces(Color.WHITE);
-            board.draw();
-        } catch (FileNotFoundException e) {
-            System.err.println("unable to find the file " + filename);
-        }
-    }
-
+//    /**
+//     * initialize Chessboard data from a txt file.
+//     *
+//     * @param filename name of resource file
+//     */
+//    private void initializeGameFromFile(String filename) {
+//        try {
+//            Scanner input = new Scanner(new File(filename));
+//            input.useDelimiter("\\s*,\\s*");
+//            generatePawns(Color.BLACK);
+//            generatePawns(Color.WHITE);
+//            generateRankPieces(Color.BLACK);
+//            generateRankPieces(Color.WHITE);
+//            board.draw();
+//        } catch (FileNotFoundException e) {
+//            System.err.println("unable to find the file " + filename);
+//        }
+//    }
     /**
      * generate pawn pieces for selected color.
      *
@@ -237,16 +224,19 @@ public class ChessHitsGame {
             tempSquare.addPiece(pawn);
         }
     }
-    public Square getSquare(int row, int col){
-        return this.board.getSquare( board.getPositions()[row][col]);
-        
+
+    public Square getSquare(int row, int col) {
+        return this.board.getSquare(board.getPositions()[row][col]);
+
     }
-    public Board getBoard(){
+
+    public Board getBoard() {
         return this.board;
     }
-    private Piece getPiece(Position position){
+
+    private Piece getPiece(Position position) {
         return board.getSquare(position).getOccupiedPiece();
-        
+
     }
 
     /**
@@ -267,7 +257,8 @@ public class ChessHitsGame {
         }
         return isMoved;
     }
-     private boolean determineMoveOrAttack(Piece piece, Position toPos) {
+
+    private boolean determineMoveOrAttack(Piece piece, Position toPos) {
         boolean isMoved = false;
         Square destSquare = this.board.getSquare(toPos);
         Piece dPiece = this.board.getSquare(toPos).getOccupiedPiece();
@@ -284,7 +275,7 @@ public class ChessHitsGame {
                 isMoved = attackPiece(piece, dPiece);
             }
             //all the rest should be considered as illegal input
-            if (piece != null && piece instanceof Pawn ) {
+            if (piece.isAlive() && piece instanceof Pawn) {
                 Pawn temPawn = (Pawn) piece;
                 Color pieceColor = piece.getColor();
 //                switch (pieceColor) {
@@ -307,16 +298,24 @@ public class ChessHitsGame {
 
     private boolean attackPiece(Piece fromPiece, Piece toPiece) {
         boolean isSuccessful = false;
-        if (toPiece != null && toPiece.isAlive() && toPiece instanceof Pawn) {
-            Pawn pawn = (Pawn) toPiece;
-            if (isPawnAbleFork(pawn, fromPiece.getCurrentPosition())) {
-                toPiece.attack(fromPiece);
+        if (fromPiece instanceof Pawn && toPiece != null && toPiece.isAlive()) {
+            Pawn pawn = (Pawn) fromPiece;
+            if (isPawnAbleFork(pawn, toPiece.getCurrentPosition())) {
+                pawn.attack(toPiece);
                 isSuccessful = true;
+                if (toPiece instanceof Pawn && toPiece.isAlive()) {
+                    Pawn anotherPawn = (Pawn) toPiece;
+                    if (isPawnAbleFork(anotherPawn, fromPiece.getCurrentPosition())) {
+                        anotherPawn.attack(fromPiece);
+                    }
+                }
             }
         } else if (toPiece != null) {
             System.out.println(fromPiece.getStringRepresentation() + " attacks " + toPiece.getStringRepresentation());
             fromPiece.attack(toPiece);
-            if (toPiece.isAlive() && toPiece.move(fromPiece.getCurrentPosition())) {
+            if (toPiece.isAlive() && toPiece instanceof Pawn && isPawnAbleFork(toPiece, fromPiece.getCurrentPosition())) {
+                toPiece.attack(fromPiece);
+            } else if (toPiece.isAlive() && toPiece.move(fromPiece.getCurrentPosition())) {
                 System.out.println(toPiece.getStringRepresentation() + " attacks " + fromPiece.getStringRepresentation());
                 toPiece.attack(fromPiece);
             }
@@ -326,8 +325,6 @@ public class ChessHitsGame {
         if (!fromPiece.isAlive()) {
             Position temPos = fromPiece.getCurrentPosition();
             this.board.getSquare(temPos).removePiece(fromPiece);
-            if (fromPiece instanceof King) {
-            }
         }
         if (toPiece != null && !toPiece.isAlive()) {
             Position temPos = toPiece.getCurrentPosition();
@@ -337,19 +334,33 @@ public class ChessHitsGame {
             fromSquare.removePiece(fromPiece);
             toSquare.removePiece(toPiece);
             toSquare.addPiece(fromPiece);
-            if (toPiece instanceof King) {
+        }
+        if (toPiece instanceof King && !toPiece.isAlive()) {
+            switch (toPiece.getColor()) {
+                case BLACK:
+                    System.out.print(this.blackPlayer.getName());
+                case WHITE:
+                    System.out.print(this.whitePlayer.getName());
             }
-        }
-        if (isSuccessful && fromPiece.isAlive()) {
-            System.out.println(ChessHitsGame.ANSI_PURPLE + fromPiece.getStringRepresentation() + " NOW at row: " + fromPiece.getCurrentPosition().getRow()
-                    + " column: " + fromPiece.getCurrentPosition().getColumn() + "; " + fromPiece.getStringRepresentation() + " has " + fromPiece.getHP() + " left");
-        }
-        if (isSuccessful && toPiece != null && toPiece.isAlive()) {
-            System.out.println(ChessHitsGame.ANSI_CYAN + toPiece.getStringRepresentation() + " NOW at row: " + toPiece.getCurrentPosition().getRow()
-                    + " column: " + toPiece.getCurrentPosition().getColumn() + "; " + toPiece.getStringRepresentation() + " has " + toPiece.getHP() + " left.");
+            System.out.println(" lost the game");
+            this.isGameRunning = false;
+            System.out.println("press any key to continue");
+            userInputReader.nextLine();
+        } else {
+            if (isSuccessful && fromPiece.isAlive()) {
+                System.out.println(fromPiece.getStringRepresentation() + " NOW at row: " + fromPiece.getCurrentPosition().getRow()
+                        + " column: " + fromPiece.getCurrentPosition().getColumn() + "; " + fromPiece.getStringRepresentation()
+                        + " has " + fromPiece.getHP() + " left");
+            }
+            if (isSuccessful && toPiece != null && toPiece.isAlive()) {
+                System.out.println(toPiece.getStringRepresentation() + " NOW at row: " + toPiece.getCurrentPosition().getRow()
+                        + " column: " + toPiece.getCurrentPosition().getColumn() + "; " + toPiece.getStringRepresentation()
+                        + " has " + toPiece.getHP() + " left.");
+            }
         }
         return isSuccessful;
     }
+
 
     /*
      * generate higher rank pieces for selected color
@@ -479,8 +490,6 @@ public class ChessHitsGame {
         return newPosition;
     }
 
-   
-
     /**
      * convert row text representation to the value that java can manipulate
      *
@@ -548,6 +557,7 @@ public class ChessHitsGame {
         }
         return exactRow;
     }
+
     private Piece askForPromotion(Pawn pawn) {
         Piece piece = null;
         Position currentPos = pawn.getCurrentPosition();
@@ -602,52 +612,65 @@ public class ChessHitsGame {
 
     public boolean getSelectedSquare(Square square) {
         boolean turn = false;
-        try{
-        if(!firstSelected){
-           Piece piece = square.getOccupiedPiece();
-           if(whiteTurn){
-               
-               if(piece.getColor() == WHITE){
-                   squareMove = square;
-                   firstSelected = true;
-                   turn = true;
-              
-               }
-           }
-           else if(piece.getColor() == BLACK){
-                 squareMove = square;
-                   firstSelected = true;
-                   turn = true;
-                   
-           }
-               
-        }
-        else{
-             firstSelected = false;
-            if(movePlayerPiece(squareMove.getPosition(), square.getPosition())){
-                whiteTurn = !whiteTurn;
-               whitePlayer.setIsTurn(!whitePlayer.getIsTurn());
-                blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
-                
-                
+        try {
+            if (!firstSelected) {
+                Piece piece = square.getOccupiedPiece();
+                if (whiteTurn) {
+
+                    if (piece.getColor() == WHITE) {
+                        squareMove = square;
+                        firstSelected = true;
+                        turn = true;
+
+                    }
+                } else if (piece.getColor() == BLACK) {
+                    squareMove = square;
+                    firstSelected = true;
+                    turn = true;
+
+                }
+
+            } else {
+                firstSelected = false;
+                if (movePlayerPiece(squareMove.getPosition(), square.getPosition())) {
+                    whiteTurn = !whiteTurn;
+                    whitePlayer.setIsTurn(!whitePlayer.getIsTurn());
+                    blackPlayer.setIsTurn(!blackPlayer.getIsTurn());
+
+
+                }
             }
-        }
-        
-        }
-        catch(Exception e){
-           
+
+        } catch (Exception e) {
         }
         return turn;
     }
-        public void setBlackPlayer(Player player){
-            blackPlayer = player;  
+
+    public Player getPlayer(Color color) {
+        Player player = null;
+        switch (color) {
+            case WHITE:
+                player = this.whitePlayer;
+                break;
+            case BLACK:
+                player = this.blackPlayer;
+                break;
+            default:
+                break;
         }
-           public void setWhitePlayer(Player player){
-            whitePlayer = player;
-        }
+
+        return player;
+    }
+
+    public void setBlackPlayer(Player player) {
+        blackPlayer = player;
+    }
+
+    public void setWhitePlayer(Player player) {
+        whitePlayer = player;
+    }
 
     public void setWhiteTurn(boolean whiteTurn) {
         this.whiteTurn = whiteTurn;
     }
-    }
-
+}

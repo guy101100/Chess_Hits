@@ -73,15 +73,6 @@ public class KingTest {
         assertFalse(kingCastle.getCastleStatus());
     }
 
-    /**
-     * Test of enableCastle method, of class King.
-     */
-    @Test
-    public void testEnableCastle() {
-        assertFalse(king.getCastleStatus());
-        king.enableCastle();
-        assertTrue(king.getCastleStatus());
-    }
 
     /**
      * Test of move method, of class King.
